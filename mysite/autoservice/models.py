@@ -39,8 +39,19 @@ class Order(models.Model):
     date = models.DateTimeField(verbose_name="Data", auto_now_add=True)
     vehicle = models.ForeignKey(to="Vehicle", verbose_name="Automobilis", on_delete=models.SET_NULL, null=True)
 
+    LOAN_STATUS = (
+        ("p", "Patvirtinta"),
+        ("v", "Vygdoma"),
+        ("a", "Atsaukta"),
+        ("t", "Tvirtininama"),
+        ("i", "Ivykdyta")
+    )
+
+    status = models.CharField(verbose_name="Busena", max_length=1, choices=LOAN_STATUS, blank=True, default="t")
+
     def __str__(self):
         return f"{self.vehicle} ({self.date})"
+
 
     class Meta:
         verbose_name = "Uzsakymas"
